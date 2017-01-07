@@ -1,0 +1,22 @@
+BOM avs-mod-shield
+==================
+
+Revision: v0.1
+Supplier: Reichelt
+
+| Part         | Name                     | Quantity | Order No       |
+-----------------------------------------------------------------------
+| X1           | Anschlussklemme 2-polig  | 1        | AKL 101-02     |
+| XV1-XV6      | Molex Stiftleiste-KK-1x3 | 6        | MOLEX 22272031 |
+| XP1-XP6, XR1 | Wannenstecker, 20-polig  | 7        | WSL 20G        |
+| XD1          | Wannenstecker, 16-polig  | 1        | WSL 16G        |
+| SP1          | Summer                   | 1        | SUMMER TDB 05  |
+| P1           | 2x36pol.-Stiftleiste     | 1        | SL 2X36G 2,54  |
+| P2-P7        | 50pol. Stiftleiste       | 1        | SL 1X50G 2,54  |
+
+Optional Power Connectors for Module Power:
+
+| Name                          | Quantity | Order No       |
+-------------------------------------------------------------
+| Molex Crimpgehäuse - KK - 1x3 | 6        | MOLEX 22012035 |
+| Crimpkontakte für psk 254     | 1        | PSK-KONTAKTE   |

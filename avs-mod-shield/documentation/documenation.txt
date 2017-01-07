@@ -1,0 +1,17 @@
+Documentation AVS-mod-shield
+============================
+
+Connectors
+==========
+
+X1
+--
+
+External 5V Supply (1A) needed at least if display is used (450mA)
+
+XP1-XP6
+-------
+
+- Connectors for the AVS-1280 Bus
+- At this time only used for "Abfragetastenfeld"
+- Addresslines AP0-AP7 are connected to 
