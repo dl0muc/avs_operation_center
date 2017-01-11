@@ -12,14 +12,16 @@
 
 #include "avs.h"
 
+Avs *avs;
+
 void setup()
 {
-    AVS::setup();
+    avs = new Avs();
 } // setup
 
 void loop()
 {
-    Commands::commandLoop();
+    avs->commandLoop();
 #if ENABLE_DEBUG
     //Some Debug Stuff here
 #endif //ENABLE_DEBUG

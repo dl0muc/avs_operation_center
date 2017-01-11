@@ -14,19 +14,19 @@
 #define AVS_H
 
 #include "configuration.h"
-#include "commands.h"
-#include "Arduino.h"
+#include "avs_bus_communication.h"
+#include "avs_display.h"
 
-class AVS
+class Avs
 {
 public:
-    static void setup();
-    static void setAddress(char address);
-    static void setData(char data);
-    char getData();
+    Avs();
+    void commandLoop();
 
 private:
-    static void initializePins();
+    AvsBusCommunication* m_avs_bus;
+    AvsDisplay* m_avs_display;
+
 };
 
 #endif // AVS_H
