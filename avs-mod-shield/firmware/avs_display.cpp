@@ -28,7 +28,7 @@ void AvsDisplay::initDisplay()
     //first wait a few ms to powerup display
     delay(AVS_DISP_INIT_DELAY);
     m_avs_bus->writeData(0x00);
-    //set 3 times D2-D7 on HIGH and LOW
+    //set 3 times D2-D7 on HIGH and LOW to enable parallel data
     for(int i = 0; i < 3; i++){
         delayMicroseconds(10);
         m_avs_bus->writeData(0xFC);
@@ -36,20 +36,34 @@ void AvsDisplay::initDisplay()
         m_avs_bus->writeData(0x00);
     }
     setCommand(AVS_DISP_COM_64_CYCLES_GRID, LD_both); //We want it bright
-    setCommand(AVS_DISP_COM_MSB_NORMAL, LD_both); //Curser if MSB is HIGH
+    setCommand(AVS_DISP_COM_MSB_INVERT, LD_both); //Inverted if MSB is HIGH
     setCommand(AVS_DISP_COM_DIGIT_COUNTER + AVS_DISP_CHARS, LD_both); //20 Digits
     setCommand(AVS_DISP_COM_REFRESH, LD1);
 }
 
 void AvsDisplay::setCommand(char command, tLineNumber line_number)
 {
-    m_avs_bus->writeData(0x01);
+    m_avs_bus->writeData(0x01); //Enable Command Mode
     cycleLd(line_number);
     m_avs_bus->writeData(command);
     cycleLd(line_number);
 }
 
-void AvsDisplay::writeCharacter(char character, tLineNumber line_number, bool msb = false)
+void AvsDisplay::writeString(char* string, char length, tLineNumber line_number, bool msb)
+{
+    char length_ = 0;
+    if(length < AVS_DISP_CHARS)
+        length_ = length;
+    else
+        length_ = AVS_DISP_CHARS;
+
+    for(int i = 0; i = length_; i++)
+    {
+        writeCharacter(string[i], line_number, msb);
+    }
+}
+
+void AvsDisplay::writeCharacter(char character, tLineNumber line_number, bool msb)
 {
     char special_character = 0x00;
     if(msb == true)
@@ -67,10 +81,13 @@ void AvsDisplay::writeCharacter(char character, tLineNumber line_number, bool ms
     }    
 }
 
-void AvsDisplay::writeCharacter(char character, tLineNumber line_number, int curser_position, bool msb = false)
+void AvsDisplay::writeCharacter(char character, tLineNumber line_number, int curser_position, bool msb)
 {
     //Same as above, but with command for jumping curser
-    setCommand(AVS_DISP_COM_BUFFER_POINTER + curser_position, line_number);
+    if(curser_position < AVS_DISP_CHARS)
+        setCommand(AVS_DISP_COM_BUFFER_POINTER + curser_position, line_number);
+    else
+        setCommand(AVS_DISP_COM_BUFFER_POINTER + AVS_DISP_CHARS, line_number);
     writeCharacter(character, line_number, msb);
 }
 

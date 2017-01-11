@@ -44,8 +44,9 @@ public:
     void initDisplay();
 
     enum tLineNumber {LD1, LD2, LD_both};
-    void writeCharacter(char character, tLineNumber line_number, bool msb);
-    void writeCharacter(char character, tLineNumber line_number, int curser_position, bool msb);
+    void writeString(char* string, char length, tLineNumber line_number, bool msb = false);
+    void writeCharacter(char character, tLineNumber line_number, bool msb = false);
+    void writeCharacter(char character, tLineNumber line_number, int curser_position, bool msb = false);
 
 
 private:
