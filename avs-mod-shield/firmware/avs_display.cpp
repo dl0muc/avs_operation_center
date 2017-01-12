@@ -57,7 +57,7 @@ void AvsDisplay::writeString(char* string, char length, tLineNumber line_number,
     else
         length_ = AVS_DISP_CHARS;
 
-    for(int i = 0; i = length_; i++)
+    for(int i = 0; i < length_; i++)
     {
         writeCharacter(string[i], line_number, msb);
     }
