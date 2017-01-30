@@ -27,6 +27,7 @@ public:
     void writeData(char data);
     char readData();
     void writeLd(bool ld_1, bool ld_2);
+    void resetPOR();
 
 private:
     void addressHasBeenSet(bool address_has_been_set);
@@ -59,6 +60,7 @@ private:
     //Line Select Pins
     PIN_TYPE(C,1) LD1;
     PIN_TYPE(C,3) LD2;
+    PIN_TYPE(C,2) POR;
     //Buzzer Pin
     PIN_TYPE(H,6) BUZZ;
     //Matrix Pins

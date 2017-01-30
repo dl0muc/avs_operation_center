@@ -19,8 +19,9 @@
 #define AVS_DISP_LINES          2
 #define AVS_DISP_CHARS         20
 //Timings
-#define AVS_DISP_INIT_DELAY    50 //We don't read the PowerUp Signal :/ so its just guessing
+#define AVS_DISP_INIT_DELAY    500 //We don't read the PowerUp Signal :/ so its just guessing
 #define AVS_DISP_HOLD_TIME      2 //Datasheet says min 1µs but lets begin with 2
+#define AVS_DISP_ON_TIME       70 //Display needs 40µs to handle the data, lets try 70
 #define AVS_DISP_OFF_TIME      50 //Display needs 40µs to handle the data, lets try 50
 //Commands
 #define AVS_DISP_COM_16_CYCLES_GRID 0x05 //Dark

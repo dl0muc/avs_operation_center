@@ -26,15 +26,17 @@ AvsDisplay::AvsDisplay(AvsBusCommunication* avs_bus)
 void AvsDisplay::initDisplay()
 {
     //first wait a few ms to powerup display
-    delay(AVS_DISP_INIT_DELAY);
     m_avs_bus->writeData(0x00);
+    delay(AVS_DISP_INIT_DELAY);
+    m_avs_bus->resetPOR(); //may not work at the moment
+    delayMicroseconds(100);
     //set 3 times D2-D7 on HIGH and LOW to enable parallel data
     for(int i = 0; i < 3; i++){
-        delayMicroseconds(10);
+        delayMicroseconds(100);
         m_avs_bus->writeData(0xFC);
-        delayMicroseconds(10);
+        delayMicroseconds(100);
         m_avs_bus->writeData(0x00);
-    }
+    }  
     setCommand(AVS_DISP_COM_64_CYCLES_GRID, LD_both); //We want it bright
     setCommand(AVS_DISP_COM_MSB_INVERT, LD_both); //Inverted if MSB is HIGH
     setCommand(AVS_DISP_COM_DIGIT_COUNTER + AVS_DISP_CHARS, LD_both); //20 Digits
@@ -59,7 +61,7 @@ void AvsDisplay::writeString(char* string, char length, tLineNumber line_number,
 
     for(int i = 0; i < length_; i++)
     {
-        writeCharacter(string[i], line_number, msb);
+        writeCharacter(string[i], line_number, i, msb);
     }
 }
 
@@ -94,25 +96,33 @@ void AvsDisplay::writeCharacter(char character, tLineNumber line_number, int cur
 void AvsDisplay::cycleLd(tLineNumber line_number)
 {
     switch(line_number) {
-    case LD1:
+        case LD1:
+        m_avs_bus->writeLd(false, false);
+        delayMicroseconds(AVS_DISP_ON_TIME);
         m_avs_bus->writeLd(true, false);
         delayMicroseconds(AVS_DISP_HOLD_TIME);
         m_avs_bus->writeLd(false, false);
         delayMicroseconds(AVS_DISP_OFF_TIME);
         break;
-    case LD2:
+        case LD2:
+        m_avs_bus->writeLd(false, false);
+        delayMicroseconds(AVS_DISP_ON_TIME);
         m_avs_bus->writeLd(false, true);
         delayMicroseconds(AVS_DISP_HOLD_TIME);
         m_avs_bus->writeLd(false, false);
         delayMicroseconds(AVS_DISP_OFF_TIME);
         break;
-    case LD_both:
-        m_avs_bus->writeLd(true, true);
+        case LD_both:
+        m_avs_bus->writeLd(false, false);
+        delayMicroseconds(AVS_DISP_ON_TIME);
+        m_avs_bus->writeLd(true, false);
+        delayMicroseconds(AVS_DISP_HOLD_TIME);
+        m_avs_bus->writeLd(false, true);
         delayMicroseconds(AVS_DISP_HOLD_TIME);
         m_avs_bus->writeLd(false, false);
         delayMicroseconds(AVS_DISP_OFF_TIME);
         break;
-    default:
+        default:
         break;
     }
 }

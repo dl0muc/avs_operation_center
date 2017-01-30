@@ -14,7 +14,7 @@
 #include "Arduino.h"
 
 ///
-/// 
+///
 ///
 
 Avs::Avs() {
@@ -25,9 +25,10 @@ Avs::Avs() {
 void Avs::commandLoop() {
 // Do all the commands here
     m_avs_display->writeString("    Hello World!    ", 20, AvsDisplay::LD1, false);
-    m_avs_display->writeString("       DL0MUC       ", 20, AvsDisplay::LD1, false);
+    m_avs_display->writeString("       DL0MUC       ", 20, AvsDisplay::LD2, false);
     delay(2000);
     m_avs_display->writeString("    Hello World!    ", 20, AvsDisplay::LD1, false);
-    m_avs_display->writeString("       DL0MUC       ", 20, AvsDisplay::LD1, true);   
+    m_avs_display->writeString("       DL0MUC       ", 20, AvsDisplay::LD2, true);
+    delay(2000);
 }
 

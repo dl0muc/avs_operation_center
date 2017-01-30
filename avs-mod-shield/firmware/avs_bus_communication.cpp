@@ -127,6 +127,13 @@ void AvsBusCommunication::writeLd(bool ld_1, bool ld_2)
 ///
 void AvsBusCommunication::initializePins()
 {
+        //Set Line Select Pins as outport
+    make_output(LD1);
+    reset(LD1);
+    make_output(LD2);
+    reset(LD2);
+    make_output(POR);
+    set(POR);
     //Set Address Pins as outport
     make_output(AP1);
     make_output(AP1);
@@ -147,9 +154,6 @@ void AvsBusCommunication::initializePins()
     make_output(P7);
     //Set LED Reset Pin as outport
     make_output(_G);
-    //Set Line Select Pins as outport
-    make_output(LD1);
-    make_output(LD2);
     //Set Buzzer as Outport
     make_output(BUZZ);
     //Set Matrix Pins and enable Pullups
@@ -176,4 +180,9 @@ void AvsBusCommunication::initializePins()
     make_output(TW4);
     make_output(TW5);
     make_output(TW6);
+}
+
+void AvsBusCommunication::resetPOR(){
+    reset(POR);
+
 }
